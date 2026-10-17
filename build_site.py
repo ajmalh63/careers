@@ -5,12 +5,12 @@ BASE_DIR = "/home/ubuntu/repos/careers"
 JOBS_DIR = os.path.join(BASE_DIR, "jobs")
 os.makedirs(JOBS_DIR, exist_ok=True)
 
-# 1. Generate jobs.json for AI Agents
+# 1. Update jobs.json with extended metadata
 jobs_catalog = {
-    "version": "1.0",
+    "version": "1.1",
     "organization": "Opus Overseas Talent Network",
     "portal_url": "https://ajmalh63.github.io/careers/",
-    "updated_at": "2026-10-17T22:50:00Z",
+    "updated_at": "2026-10-17T23:05:00Z",
     "intake_email": "apply@opusoverseas.com",
     "active_jobs_count": 1,
     "active_jobs": [
@@ -29,7 +29,8 @@ jobs_catalog = {
             "experience_sweet_spot": "3 to 4 years of hands-on forward-deployed engineering or production systems",
             "gate_criteria": "Must have personally owned and shipped an enterprise deployment from first call to production code",
             "url": "https://ajmalh63.github.io/careers/jobs/founding-forward-deployed-engineer.html",
-            "apply_email": "apply@opusoverseas.com"
+            "apply_email": "apply@opusoverseas.com",
+            "required_proof_of_work": ["GitHub", "LinkedIn", "Resume (PDF)", "Shipped Deployment Brief"]
         }
     ]
 }
@@ -37,7 +38,7 @@ jobs_catalog = {
 with open(os.path.join(BASE_DIR, "jobs.json"), "w", encoding="utf-8") as f:
     json.dump(jobs_catalog, f, indent=2)
 
-# 2. Generate jobs/founding-forward-deployed-engineer.html
+# 2. Generate jobs/founding-forward-deployed-engineer.html with Ashby & YC Gold Standard Application Form
 fde_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,7 +111,7 @@ fde_html = """<!DOCTYPE html>
       line-height: 1.6;
       padding: 2.5rem 1rem;
     }
-    .container { max-width: 800px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 2.5rem; }
+    .container { max-width: 820px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 2.5rem; }
     a.back-link { color: var(--accent); text-decoration: none; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 1.5rem; font-weight: 500; }
     a.back-link:hover { text-decoration: underline; }
     h1 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; line-height: 1.3; }
@@ -132,7 +133,7 @@ fde_html = """<!DOCTYPE html>
       font-size: 0.95rem;
     }
     
-    /* Interactive Application Form Card */
+    /* Ashby / YC Gold-Standard Application Form */
     .apply-section {
       margin-top: 3rem;
       padding-top: 2.5rem;
@@ -140,16 +141,27 @@ fde_html = """<!DOCTYPE html>
     }
     .apply-card {
       background: #0a0f1d;
-      border: 1px solid var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 12px;
-      padding: 2rem;
+      padding: 2.25rem;
       box-shadow: 0 8px 30px rgba(56, 189, 248, 0.08);
     }
-    .apply-header { margin-bottom: 1.5rem; }
-    .apply-header h3 { font-size: 1.4rem; color: #fff; margin-bottom: 0.35rem; }
+    .apply-header { margin-bottom: 1.75rem; border-bottom: 1px solid #1e293b; padding-bottom: 1rem; }
+    .apply-header h3 { font-size: 1.45rem; color: #fff; margin-bottom: 0.35rem; }
     .apply-header p { color: var(--text-muted); font-size: 0.9rem; }
+    
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+    
     .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.4rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.45rem; }
+    .form-group label span.opt { color: var(--text-muted); font-weight: 400; font-size: 0.8rem; }
     .form-control {
       width: 100%;
       padding: 0.75rem 1rem;
@@ -158,9 +170,11 @@ fde_html = """<!DOCTYPE html>
       border-radius: 8px;
       color: #fff;
       font-size: 0.95rem;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
-    .form-control:focus { outline: none; border-color: var(--accent); }
+    .form-control:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+    textarea.form-control { resize: vertical; min-height: 85px; }
+
     .file-dropzone {
       border: 2px dashed var(--input-border);
       border-radius: 8px;
@@ -168,48 +182,49 @@ fde_html = """<!DOCTYPE html>
       text-align: center;
       background: rgba(30, 41, 59, 0.4);
       cursor: pointer;
-      transition: border-color 0.15s ease;
+      transition: border-color 0.15s ease, background 0.15s ease;
     }
-    .file-dropzone:hover { border-color: var(--accent); }
+    .file-dropzone:hover { border-color: var(--accent); background: rgba(30, 41, 59, 0.7); }
     .file-dropzone input { display: none; }
     .file-label { color: #94a3b8; font-size: 0.9rem; }
     .file-label strong { color: var(--accent); }
-    .selected-filename { margin-top: 0.5rem; font-size: 0.85rem; color: var(--salary); font-weight: 500; }
+    .selected-filename { margin-top: 0.5rem; font-size: 0.85rem; color: var(--salary); font-weight: 600; }
+    
     .btn-submit {
       width: 100%;
       background: #0284c7;
       color: #fff;
-      padding: 0.9rem;
+      padding: 0.95rem;
       border: none;
       border-radius: 8px;
       font-size: 1.05rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.15s ease;
-      margin-top: 1rem;
+      transition: background 0.15s ease, transform 0.1s ease;
+      margin-top: 1.25rem;
     }
-    .btn-submit:hover { background: #0369a1; }
+    .btn-submit:hover { background: #0369a1; transform: translateY(-1px); }
+    
     .direct-email-note {
       text-align: center;
-      margin-top: 1.25rem;
+      margin-top: 1.5rem;
       font-size: 0.85rem;
       color: #94a3b8;
     }
     .direct-email-note a { color: var(--accent); text-decoration: none; font-weight: 600; }
     .direct-email-note a:hover { text-decoration: underline; }
     
-    /* Confirmation Overlay */
     .success-modal {
       display: none;
       background: #064e3b;
       border: 1px solid #059669;
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 1.75rem;
       margin-top: 1.5rem;
       text-align: center;
       color: #ecfdf5;
     }
-    .success-modal h4 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #a7f3d0; }
+    .success-modal h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #a7f3d0; }
   </style>
 </head>
 <body>
@@ -256,48 +271,86 @@ fde_html = """<!DOCTYPE html>
       </ul>
     </div>
 
-    <!-- Interactive Application Card -->
+    <!-- Ashby / YC Gold Standard Technical Application Form -->
     <div class="apply-section" id="apply">
       <div class="apply-card">
         <div class="apply-header">
           <h3>Apply for this Position</h3>
-          <p>Direct confidential review by Opus Overseas talent partners and founding team.</p>
+          <p>Confidential review directly by Opus Overseas talent partners and founding engineering leadership.</p>
         </div>
 
         <form id="applicationForm" onsubmit="handleApplicationSubmit(event)">
+          <!-- Phase 1: Core Identification -->
           <div class="form-group">
             <label for="fullName">Full Legal Name *</label>
-            <input type="text" id="fullName" class="form-control" placeholder="Jane Doe" required>
+            <input type="text" id="fullName" class="form-control" placeholder="Alex Chen" required>
           </div>
 
-          <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div>
+          <div class="form-grid-2">
+            <div class="form-group">
               <label for="email">Email Address *</label>
-              <input type="email" id="email" class="form-control" placeholder="jane@example.com" required>
+              <input type="email" id="email" class="form-control" placeholder="alex@example.com" required>
             </div>
-            <div>
+            <div class="form-group">
               <label for="phone">Phone Number *</label>
               <input type="tel" id="phone" class="form-control" placeholder="+1 (555) 000-0000" required>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="linkedin">LinkedIn Profile URL *</label>
-            <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/username" required>
+          <!-- Phase 2: Proof of Work (GitHub + LinkedIn + Portfolio) -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="github">GitHub / GitLab Profile URL *</label>
+              <input type="url" id="github" class="form-control" placeholder="https://github.com/username" required>
+            </div>
+            <div class="form-group">
+              <label for="linkedin">LinkedIn Profile URL *</label>
+              <input type="url" id="linkedin" class="form-control" placeholder="https://linkedin.com/in/username" required>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="visaStatus">Current US Work Authorization *</label>
-            <select id="visaStatus" class="form-control" required>
-              <option value="" disabled selected>Select your current work authorization status</option>
-              <option value="US Citizen">US Citizen</option>
-              <option value="Permanent Resident">Permanent Resident (Green Card)</option>
-              <option value="In-US Visa Transfer">In-US Visa Transfer (H-1B, O-1, TN, E-3)</option>
-              <option value="F-1 STEM OPT">F-1 STEM OPT (In the US)</option>
-              <option value="Requires Abroad Petition">Outside US (Requires Overseas Petition - Not Eligible)</option>
+            <label for="portfolio">Personal Website / Technical Blog / Shipped Product Link <span class="opt">(Optional)</span></label>
+            <input type="url" id="portfolio" class="form-control" placeholder="https://alexchen.dev or project demo">
+          </div>
+
+          <!-- Phase 3: Targeted Logistics & Hard Screening Filters -->
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="visaStatus">Current US Work Authorization *</label>
+              <select id="visaStatus" class="form-control" required>
+                <option value="" disabled selected>Select authorization status</option>
+                <option value="US Citizen">US Citizen</option>
+                <option value="Permanent Resident">Permanent Resident (Green Card)</option>
+                <option value="In-US Visa Transfer">In-US Visa Transfer (H-1B, O-1, TN, E-3)</option>
+                <option value="F-1 STEM OPT">F-1 STEM OPT (Currently in the US)</option>
+                <option value="Requires Abroad Petition">Outside US (Requires Overseas Petition - Ineligible)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="locationRelo">Current Location &amp; SF Bay Relocation *</label>
+              <input type="text" id="locationRelo" class="form-control" placeholder="e.g. San Francisco, or Austin (Can relocate)" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="noticePeriod">Earliest Start Date / Notice Period *</label>
+            <select id="noticePeriod" class="form-control" required>
+              <option value="" disabled selected>Select availability</option>
+              <option value="Immediately">Immediately (No notice required)</option>
+              <option value="1 to 2 Weeks">1 to 2 Weeks</option>
+              <option value="3 to 4 Weeks">3 to 4 Weeks</option>
+              <option value="1 Month+">1 Month or more</option>
             </select>
           </div>
 
+          <!-- Phase 4: High-Signal YC Technical Prompt -->
+          <div class="form-group">
+            <label for="shippedSystem">Tell us about an enterprise deployment or complex system you personally built and shipped to production * <span class="opt">(2-3 sentences: what was your contribution and what broke?)</span></label>
+            <textarea id="shippedSystem" class="form-control" placeholder="e.g., Designed and deployed an asynchronous ETL and agentic pipeline for a Fortune 500 logistics client using Python, FastAPI, and Kafka. Resolved low-latency bottlenecks under degraded networks..." required></textarea>
+          </div>
+
+          <!-- Phase 5: PDF Resume Dropzone -->
           <div class="form-group">
             <label>Resume / CV (PDF or DOCX) *</label>
             <div class="file-dropzone" onclick="document.getElementById('resumeFile').click()">
@@ -309,7 +362,7 @@ fde_html = """<!DOCTYPE html>
             </div>
           </div>
 
-          <button type="submit" class="btn-submit" id="submitBtn">Submit Application</button>
+          <button type="submit" class="btn-submit" id="submitBtn">Submit Application &rarr;</button>
         </form>
 
         <div class="success-modal" id="successModal">
@@ -318,7 +371,7 @@ fde_html = """<!DOCTYPE html>
         </div>
 
         <p class="direct-email-note">
-          Prefer direct email? You can also send your resume directly to:  
+          Prefer direct email? You can also send your resume and GitHub profile to:  
           <a href="mailto:apply@opusoverseas.com?subject=Application:%20Founding%20Forward-Deployed%20Engineer">apply@opusoverseas.com</a>
         </p>
       </div>
@@ -336,13 +389,9 @@ fde_html = """<!DOCTYPE html>
       event.preventDefault();
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
-      btn.textContent = "Submitting...";
+      btn.textContent = "Submitting Application...";
 
       const name = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const linkedin = document.getElementById('linkedin').value;
-      const visa = document.getElementById('visaStatus').value;
       const fileInput = document.getElementById('resumeFile');
       const fileName = fileInput.files[0] ? fileInput.files[0].name : "attached";
 
@@ -352,7 +401,7 @@ fde_html = """<!DOCTYPE html>
         const modal = document.getElementById('successModal');
         modal.style.display = 'block';
         document.getElementById('successMessage').textContent = 
-          "Thank you " + name + "! Your application and resume (" + fileName + ") have been securely received. Our talent team will review your qualifications against the Founding FDE bar.";
+          "Thank you " + name + "! Your application and resume (" + fileName + ") have been securely received. Our talent partners will review your qualifications against the Founding FDE bar.";
       }, 600);
     }
   </script>
@@ -363,117 +412,4 @@ fde_html = """<!DOCTYPE html>
 with open(os.path.join(JOBS_DIR, "founding-forward-deployed-engineer.html"), "w", encoding="utf-8") as f:
     f.write(fde_html)
 
-# 3. Generate index.html
-index_html = """<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-site-verification" content="rcsw9miu8jEaJI-arYRxXd-WmbQAIImQdai4lEnMDiw" />
-  <title>Careers &amp; Opportunities &mdash; Opus Overseas Talent Network</title>
-  <meta name="description" content="Direct hiring partner network for elite technology, AI, and founding engineering searches.">
-  <style>
-    :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --card-border: #1f2937;
-      --text: #f9fafb;
-      --text-muted: #9ca3af;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.15);
-      --salary: #34d399;
-      --urgent: #ef4444;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 3rem 1rem;
-    }
-    .container { max-width: 820px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 3rem; }
-    h1 { font-size: 2.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
-    .subtitle { color: var(--text-muted); font-size: 1.1rem; }
-    .job-list { display: flex; flex-direction: column; gap: 1.25rem; }
-    .job-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 1.75rem;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .job-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-      box-shadow: 0 4px 20px var(--accent-glow);
-    }
-    .job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
-    .job-title { font-size: 1.3rem; font-weight: 600; color: #fff; }
-    .badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.25rem 0.65rem;
-      border-radius: 9999px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .badge.urgent { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
-    .job-meta { display: flex; gap: 1rem; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
-    .job-snippet { color: #d1d5db; font-size: 0.95rem; margin-bottom: 0.5rem; }
-    .salary { color: var(--salary); font-weight: 600; }
-    .agent-api-link {
-      margin-top: 1.5rem;
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .agent-api-link a { color: var(--accent); text-decoration: none; }
-    .agent-api-link a:hover { text-decoration: underline; }
-    footer { margin-top: 4rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--card-border); padding-top: 2rem; text-align: center; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Opus Overseas Talent Portal</h1>
-      <p class="subtitle">Direct hiring partner network for elite technology, AI, and founding engineering searches.</p>
-    </header>
-
-    <main class="job-list">
-      <a href="jobs/founding-forward-deployed-engineer.html" class="job-card" style="border-color: rgba(56, 189, 248, 0.4);">
-        <div class="job-header">
-          <div class="job-title">Founding Forward-Deployed Engineer (Technical)</div>
-          <span class="badge urgent">Priority Search</span>
-        </div>
-        <div class="job-meta">
-          <span>Stealth Wearable AI &amp; Robotics ($5M Seed)</span>
-          <span>&bull;</span>
-          <span>SF Bay Area (Millbrae) &bull; On-Site</span>
-          <span>&bull;</span>
-          <span class="salary">Base: $160,000 &ndash; $245,000 / yr + Equity</span>
-        </div>
-        <p class="job-snippet">Embed with 50,000-employee industrial customers to bring real-time vision-language smart glasses live on the floor. Own last-layer ServiceNow/SAP integrations and agentic RAG workflows.</p>
-      </a>
-    </main>
-
-    <div class="agent-api-link">
-      <span>AI Agents &amp; Programmatic Crawlers: Access structured endpoint at <a href="jobs.json">/jobs.json</a></span>
-    </div>
-
-    <footer>
-      <p>&copy; 2026 Opus Overseas. Powered by Google for Jobs Syndication Engine.</p>
-    </footer>
-  </div>
-</body>
-</html>
-"""
-
-with open(os.path.join(BASE_DIR, "index.html"), "w", encoding="utf-8") as f:
-    f.write(index_html)
-
-print("Site built successfully with 100% clean UTF-8 encoding!")
+print("Updated with Ashby & YC Gold Standard Form (GitHub, Portfolio, Notice, Location, YC Tech Prompt) successfully!")

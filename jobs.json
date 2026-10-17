@@ -1,8 +1,8 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "organization": "Opus Overseas Talent Network",
   "portal_url": "https://ajmalh63.github.io/careers/",
-  "updated_at": "2026-10-17T22:50:00Z",
+  "updated_at": "2026-10-17T23:05:00Z",
   "intake_email": "apply@opusoverseas.com",
   "active_jobs_count": 1,
   "active_jobs": [
@@ -21,7 +21,13 @@
       "experience_sweet_spot": "3 to 4 years of hands-on forward-deployed engineering or production systems",
       "gate_criteria": "Must have personally owned and shipped an enterprise deployment from first call to production code",
       "url": "https://ajmalh63.github.io/careers/jobs/founding-forward-deployed-engineer.html",
-      "apply_email": "apply@opusoverseas.com"
+      "apply_email": "apply@opusoverseas.com",
+      "required_proof_of_work": [
+        "GitHub",
+        "LinkedIn",
+        "Resume (PDF)",
+        "Shipped Deployment Brief"
+      ]
     }
   ]
 }
