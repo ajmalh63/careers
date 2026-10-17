@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "organization": "Opus Overseas Talent Network",
+  "portal_url": "https://ajmalh63.github.io/careers/",
+  "updated_at": "2026-10-17T22:50:00Z",
+  "intake_email": "apply@opusoverseas.com",
+  "active_jobs_count": 1,
+  "active_jobs": [
+    {
+      "id": "founding-forward-deployed-engineer",
+      "title": "Founding Forward-Deployed Engineer (Technical)",
+      "client_type": "Stealth Wearable AI & Physical Robotics Startup ($5M Seed)",
+      "location": "Millbrae, CA (SF Bay Area)",
+      "workplace_type": "On-Site (Shared Hacker House transitioning to SF office)",
+      "travel": "Roughly 25% domestic travel",
+      "base_salary_min": 160000,
+      "base_salary_max": 245000,
+      "currency": "USD",
+      "equity": "0.25% - 0.75%",
+      "visa_sponsorship": "Available for candidates currently inside the US (O-1, TN, E-3, H-1B transfer, STEM OPT)",
+      "experience_sweet_spot": "3 to 4 years of hands-on forward-deployed engineering or production systems",
+      "gate_criteria": "Must have personally owned and shipped an enterprise deployment from first call to production code",
+      "url": "https://ajmalh63.github.io/careers/jobs/founding-forward-deployed-engineer.html",
+      "apply_email": "apply@opusoverseas.com"
+    }
+  ]
+}
