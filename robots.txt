@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ajmalh63.github.io/careers/sitemap.xml
